@@ -15,11 +15,10 @@ public class DemoMessageActor extends AbstractLoggingActor {
             this.from = from;
         }
 
-        public String getGreeter(){
+        public String getGreeter() {
             return from;
         }
     }
-
 
     @Override
     public Receive createReceive() {
