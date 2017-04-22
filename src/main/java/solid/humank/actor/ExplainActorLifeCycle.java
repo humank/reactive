@@ -1,8 +1,6 @@
 package solid.humank.actor;
 
-import akka.actor.AbstractActor;
 import akka.actor.AbstractLoggingActor;
-import akka.actor.Actor;
 
 /**
  * Created by kim on 2017/4/21.
@@ -24,7 +22,13 @@ public class ExplainActorLifeCycle extends AbstractLoggingActor {
 
     @Override
     public Receive createReceive() {
-        return null;
+
+        return receiveBuilder()
+                .match(String.class, s->{
+                    log().info("received something: {}" ,s);
+                })
+                .matchAny(x-> log().info("received unknown message"))
+                .build();
     }
 
 }
