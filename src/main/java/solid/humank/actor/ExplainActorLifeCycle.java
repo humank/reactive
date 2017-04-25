@@ -7,6 +7,9 @@ import akka.actor.AbstractLoggingActor;
  */
 public class ExplainActorLifeCycle extends AbstractLoggingActor {
 
+    public ExplainActorLifeCycle(){
+        log().info("non-arg consturctor invoked.");
+    }
 
     @Override
     public void preStart(){
@@ -24,6 +27,13 @@ public class ExplainActorLifeCycle extends AbstractLoggingActor {
     public Receive createReceive() {
 
         return receiveBuilder()
+                .matchEquals("Hello",s->{
+                    log().info("received Hello" ,s);
+                })
+                .matchEquals("Stop",s->{
+                    log().info("Receive stop command, the actor is about to going down ! " ,s);
+                    context().stop(self());
+                })
                 .match(String.class, s->{
                     log().info("received something: {}" ,s);
                 })
@@ -32,3 +42,4 @@ public class ExplainActorLifeCycle extends AbstractLoggingActor {
     }
 
 }
+
