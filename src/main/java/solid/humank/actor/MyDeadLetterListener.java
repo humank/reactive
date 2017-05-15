@@ -1,8 +1,6 @@
 package solid.humank.actor;
 
-import akka.actor.AbstractActor;
 import akka.actor.AbstractLoggingActor;
-import akka.actor.Actor;
 import akka.actor.DeadLetter;
 
 /**
@@ -14,7 +12,7 @@ public class MyDeadLetterListener extends AbstractLoggingActor {
     public Receive createReceive() {
         return receiveBuilder()
                 .match(DeadLetter.class, deadLetter -> {
-                    log().info("received something: {}", deadLetter.message().toString());
+                    log().info("received dead letter that receiever is not online : {}", deadLetter.message().toString());
                 })
                 .build();
     }
